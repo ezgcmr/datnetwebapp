@@ -1,0 +1,83 @@
+﻿
+/**
+ * Name: Ezgi Camur
+ * Panther Id: 5598239
+ * Assignment: Assignmnet 3
+ * Class: COP 4813 
+ * Semester: Fall 2016
+ * 
+ * I attest that this is my original work 
+ * Ezgi Camur
+ */ 
+
+
+body {
+    font-family: Arial;
+    color: #000066;
+    background-color: #efeff5;
+}
+
+#page-wrap {
+    width: 800px;
+    margin: 0 auto;
+}
+
+#prg-center {
+    width: 1030px;
+    margin: 15px auto;
+}
+
+#buttons-liner{
+    width: 800px;
+    margin: 0 auto;
+    justify-content: center;
+}
+
+#text-liner{
+    width: 800px;
+    margin: 0 auto;
+}
+
+.left {
+    width: 30%;
+    float: left;
+    text-align: right;
+}
+.right {
+    width: 65%;
+    margin-left: 10px;
+    float:left;
+}
+
+p.italic {
+    text-indent: 0px;
+    text-align: center;
+    border: 1px solid #000000;
+    font-style: italic;
+    background-color: white;
+}
+
+.center {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.image-container {
+    display: flex;
+    justify-content: center;
+}
+
+ #Menu1{
+    Padding-Left :80px;
+ }
+
+ .buttonright {
+    width: 43%;
+    margin-left: 10px;
+    float:right;
+}
+
+.validation_summary_as_bulletlist ul
+{
+    display: none;
+}

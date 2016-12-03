@@ -1,0 +1,34 @@
+CREATE TABLE Part
+(
+    [PartNo] CHAR(5) NOT NULL PRIMARY KEY, 
+    [Client] CHAR(5) NOT NULL, 
+    [RequestOrderNo] VARCHAR(5) NOT NULL, 
+    [DateEntered] DATETIME NOT NULL, 
+    [Description] VARCHAR(8) NOT NULL, 
+    [Serial] VARCHAR(5) NOT NULL, 
+    [Manufacturer] CHAR(5) NOT NULL, 
+    [Model] VARCHAR(25) NOT NULL, 
+    [MechanicCallsign] VARCHAR(25) NOT NULL, 
+    [Instructions] VARCHAR(100) NULL, 
+    [TroubleReported] VARCHAR(100) NULL, 
+    [MasterContract] BIT NULL
+)
+
+CREATE TABLE Client
+(
+	FederalTaxId varchar(15) not null,
+	BusinessName varchar(50) not null,
+	AddressLine varchar(100) not null,
+	City varchar(50) not null,
+	State char(2) not null,
+	ZipCode char(5) not null
+)
+
+CREATE TABLE Mechanic
+(
+	MechanicId int not null primary key,
+	MechanicCallSign varchar(10) not null,
+    	sFirstName  varchar(25) not null,
+	LastName varchar(25) not null,
+	Specialty varchar(15) not null
+)
