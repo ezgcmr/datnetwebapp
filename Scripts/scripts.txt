@@ -1,0 +1,178 @@
+CREATE TABLE [dbo].[Client] (
+    [FederalTaxId] VARCHAR (15)  NOT NULL,
+    [BusinessName] VARCHAR (50)  NOT NULL,
+    [AddressLine]  VARCHAR (100) NOT NULL,
+    [City]         VARCHAR (50)  NOT NULL,
+    [State]        CHAR (2)      NOT NULL,
+    [ZipCode]      CHAR (5)      NOT NULL,
+    CONSTRAINT [PK_Client] PRIMARY KEY CLUSTERED ([FederalTaxId] ASC)
+);
+
+
+CREATE TABLE [dbo].[ClientType] (
+    [ClientCode]  CHAR (5)   NOT NULL,
+    [Description] NCHAR (10) NOT NULL,
+    CONSTRAINT [PK_ClientType] PRIMARY KEY CLUSTERED ([ClientCode] ASC)
+);
+
+
+CREATE TABLE [dbo].[Manufacturer] (
+    [ManufacturerCode] CHAR (5)   NOT NULL,
+    [Description]      NCHAR (10) NOT NULL,
+    CONSTRAINT [PK_Manufacturer] PRIMARY KEY CLUSTERED ([ManufacturerCode] ASC)
+);
+
+
+
+CREATE TABLE [dbo].[Mechanic] (
+    [MechanicId]       INT          IDENTITY (1, 1) NOT NULL,
+    [MechanicCallSign] VARCHAR (10) NOT NULL,
+    [FirstName]        VARCHAR (25) NOT NULL,
+    [LastName]         VARCHAR (25) NOT NULL,
+    [Specialty]        VARCHAR (15) NOT NULL,
+    PRIMARY KEY CLUSTERED ([MechanicId] ASC)
+);
+
+
+
+CREATE TABLE [dbo].[Part] (
+    [PartNo]           CHAR (8)      NOT NULL,
+    [ClientCode]       CHAR (5)      NOT NULL,
+    [RequestOrderNo]   VARCHAR (5)   NOT NULL,
+    [DateEntered]      DATETIME      NOT NULL,
+    [Description]      VARCHAR (50)  NOT NULL,
+    [Serial]           VARCHAR (5)   NOT NULL,
+    [Manufacturer]     CHAR (5)      NOT NULL,
+    [Model]            VARCHAR (25)  NOT NULL,
+    [MechanicCallsign] VARCHAR (50)  NOT NULL,
+    [Instructions]     VARCHAR (100) NULL,
+    [TroubleReported]  VARCHAR (100) NULL,
+    [MasterContract]   BIT           NULL,
+    PRIMARY KEY CLUSTERED ([PartNo] ASC)
+);
+
+CREATE TABLE [dbo].[Vendor] (
+    [FederalTaxId] VARCHAR (15)  NOT NULL,
+    [BusinessName] VARCHAR (50)  NOT NULL,
+    [AddressLine]  VARCHAR (100) NOT NULL,
+    [City]         VARCHAR (50)  NOT NULL,
+    [State]        CHAR (2)      NOT NULL,
+    [ZipCode]      CHAR (5)      NOT NULL,
+    CONSTRAINT [PK_Vendor] PRIMARY KEY CLUSTERED ([FederalTaxId] ASC)
+);
+
+
+CREATE TABLE [dbo].[WorkOrders] (
+    [WorkOrderNumber]    CHAR (6)      NOT NULL,
+    [MechanicId]         INT           NOT NULL,
+    [PartNo]             CHAR (5)      NOT NULL,
+    [InspectionComments] VARCHAR (500) NOT NULL,
+    [Expires]            DATE          NOT NULL,
+    [DateTimeInspected]  DATETIME      NOT NULL,
+    PRIMARY KEY CLUSTERED ([WorkOrderNumber] ASC)
+);
+
+
+
+========================= AddClientVendor -- PROCEDURE=========================
+
+Create procedure AddClientVendor
+(
+@FederalTaxId varchar(15),
+@BusinessName varchar(50),
+@AddressLine varchar(100),
+@City varchar(50),
+@State char(2),s
+@ZipCode char(5),
+@ClientType char(1)
+)
+
+AS
+Begin
+
+if(@ClientType = 'V')
+	Begin
+	INSERT INTO [dbo].[Vendor]
+			   ([FederalTaxId]
+			   ,[BusinessName]
+			   ,[AddressLine]
+			   ,[City]
+			   ,[State]
+			   ,[ZipCode])
+		 VALUES
+			   (@FederalTaxId,
+				@BusinessName,
+				@AddressLine,
+				@City,
+				@State,
+				@ZipCode)
+	End
+Else
+	Begin
+	INSERT INTO [dbo].[Client]
+			   ([FederalTaxId]
+			   ,[BusinessName]
+			   ,[AddressLine]
+			   ,[City]
+			   ,[State]
+			   ,[ZipCode])
+		 VALUES
+			  (@FederalTaxId,
+				@BusinessName,
+				@AddressLine,
+				@City,
+				@State,
+				@ZipCode)
+	End
+End
+
+========================= AddMechanic -- PROCEDURE=========================
+
+Create procedure AddMechanic(
+      @MechanicCallSign varchar(10),
+      @FirstName varchar(25),
+        @LastName varchar(25),
+        @Specialty varchar(15)
+)
+As
+Begin
+INSERT INTO [dbo].[Mechanic]
+           ([MechanicCallSign],
+            [FirstName],
+            [LastName],
+            [Specialty])
+       VALUES
+         (@MechanicCallSign,
+          @FirstName,
+          @LastName,
+          @Specialty)
+End
+
+========================= AddWorkOrders -- PROCEDURE=========================
+
+
+Create procedure AddWorkOrders(
+           @WorkOrderNumber char(6),
+           @MechanicId int,
+           @PartNo char(5),
+           @InspectionComments varchar(500),
+           @Expires date,
+           @DateTimeInspected datetime
+		   )
+As
+Begin
+INSERT INTO [dbo].[WorkOrders]
+           (WorkOrderNumber
+           ,MechanicId
+           ,PartNo
+           ,InspectionComments
+           ,Expires
+		   ,DateTimeInspected)
+       VALUES
+		  (@WorkOrderNumber,
+           @MechanicId,
+           @PartNo,
+           @InspectionComments,
+           @Expires,
+           @DateTimeInspected)
+End

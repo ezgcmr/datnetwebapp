@@ -1,10 +1,4 @@
-﻿//Name: Ezgi Camur
-//Panther Id: 5598239
-//Assignment: Assignment 2
-//Class: COP 4813 
-//Semester: Fall 2016
-//I attest that this is my original work
-//Ezgi Camur
+﻿//Ezgi Camur
 
 using System;
 using System.Collections.Generic;

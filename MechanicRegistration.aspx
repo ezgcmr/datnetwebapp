@@ -1,10 +1,4 @@
 ﻿<%--
-Name: Ezgi Camur
-Panther Id: 5598239
-Assignment: Assignment 3
-Class: COP 4813 
-Semester: Fall 2016
-I attest that this is my original work 
 Ezgi Camur
 --%>
 
@@ -78,6 +72,39 @@ Ezgi Camur
         <div>
          <asp:Label ID="lblResultMsg" runat="server" Text="Label" Visible="False"></asp:Label>
         </div>
+        <br />
+        <br />
+        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="MechanicId" DataSourceID="SqlDataSource1">
+            <Columns>
+                <asp:CommandField ShowDeleteButton="True" />
+                <asp:BoundField DataField="MechanicId" HeaderText="MechanicId" InsertVisible="False" ReadOnly="True" SortExpression="MechanicId" />
+                <asp:BoundField DataField="MechanicCallSign" HeaderText="MechanicCallSign" SortExpression="MechanicCallSign" />
+                <asp:BoundField DataField="FirstName" HeaderText="FirstName" SortExpression="FirstName" />
+                <asp:BoundField DataField="LastName" HeaderText="LastName" SortExpression="LastName" />
+                <asp:BoundField DataField="Specialty" HeaderText="Specialty" SortExpression="Specialty" />
+            </Columns>
+        </asp:GridView>
+
+         
+        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:DangerZoneConnectionString2 %>" DeleteCommand="DELETE FROM [Mechanic] WHERE [MechanicId] = @MechanicId" InsertCommand="INSERT INTO [Mechanic] ([MechanicCallSign], [FirstName], [LastName], [Specialty]) VALUES (@MechanicCallSign, @FirstName, @LastName, @Specialty)" SelectCommand="SELECT [MechanicId], [MechanicCallSign], [FirstName], [LastName], [Specialty] FROM [Mechanic]" UpdateCommand="UPDATE [Mechanic] SET [MechanicCallSign] = @MechanicCallSign, [FirstName] = @FirstName, [LastName] = @LastName, [Specialty] = @Specialty WHERE [MechanicId] = @MechanicId">
+            <DeleteParameters>
+                <asp:Parameter Name="MechanicId" Type="Int32" />
+            </DeleteParameters>
+            <InsertParameters>
+                <asp:Parameter Name="MechanicCallSign" Type="String" />
+                <asp:Parameter Name="FirstName" Type="String" />
+                <asp:Parameter Name="LastName" Type="String" />
+                <asp:Parameter Name="Specialty" Type="String" />
+            </InsertParameters>
+            <UpdateParameters>
+                <asp:Parameter Name="MechanicCallSign" Type="String" />
+                <asp:Parameter Name="FirstName" Type="String" />
+                <asp:Parameter Name="LastName" Type="String" />
+                <asp:Parameter Name="Specialty" Type="String" />
+                <asp:Parameter Name="MechanicId" Type="Int32" />
+            </UpdateParameters>
+        </asp:SqlDataSource>
+
          
     </div>
 </asp:Content>
